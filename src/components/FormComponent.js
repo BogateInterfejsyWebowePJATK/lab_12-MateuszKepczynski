@@ -2,35 +2,101 @@ import React, {useRef, useState} from 'react';
 
 export default function FormComp()
 {
-    const [number, setNumber] = useState(0);
-    const [amount, setAmount] = useState(0);
-    const [iteration, setIteration] = useState(0);
-    const numberRef = useRef();
+    const [textOne, setTextOne] = useState("");
+    const [textTwo, setTextTwo] = useState("");
+    const [radio, setRadio] = useState("");
+    const [select, setSelect] = useState("");
+    const [check, setCheck] = useState("");
+    const [showTab, setTab] = useState(false);
+
+    const textOneRef = useRef();
+    const textTwoRef = useRef();
+    const radioRef = useRef();
+    const selectRef = useRef();
+    const checkRef = useRef();
 
 
     const submit = event =>
     {
         event.preventDefault();
-        setIteration(iteration + 1);
-        setNumber(parseInt(numberRef.current.value) + number);
-        console.log(number);
-        console.log(iteration);
-        console.log(amount);
-        if( number === 0)
-            setAmount(1);
-        else
-            setAmount(number / iteration);
+        setTextOne(textOneRef.current.value);
+        setTextTwo(textTwoRef.current.value);
+        setRadio(radioRef.current.checked);
+        setSelect(selectRef.current.value);
+        setTab(true);
+    }
+
+    const handleCheck = (event) =>
+    {
+        setCheck(event.target.value);
+    }
+
+    const handleRadio = (event) =>
+    {
+        setRadio(event.target.value);
+    }
+
+    const resetForm = event =>
+    {
+        event.preventDefault();
+        setTextOne("");
+        setTextTwo("");
+        setRadio("");
+        setSelect("");
+        setTab(false);
     }
 
     return(
         <div>
             <form onSubmit={submit}>
-                <label>Liczba</label>
-                <input type={"text"} ref={numberRef} required={true}/>
-                <button type={"submit"}>Policz</button>
+                <input type={"text"} ref={textOneRef}/>
+                <br/>
+
+                <input type={"text"} ref={textTwoRef}/>
+                <br/>
+
+                <input id={"radioB"} type="radio" ref={radioRef} onClick={handleRadio} value={"Guzik"}/>
+                <label for={"radioB"}>Guzik</label>
+                <br/>
+
+                <select ref={selectRef}>
+                    <option value={"Witam"}>Witam</option>
+                    <option value={"Kotki"}>Kotki</option>
+                </select>
+                <br/>
+
+                <input id={"checkB"} ref={checkRef} type="checkbox" onClick={handleCheck} value={"Potwierdzam"}/>
+                <label for={"checkB"}>Potwierdzam</label>
+                <br/>
+
+                <button type={"submit"}>Jechane</button>
+                <button type={"reset"} onClick={resetForm}>Reset</button>
             </form>
-            <h2>Suma: {number}</h2>
-            <h2>Średnia: {amount}</h2>
+            {
+                showTab ? (
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Text One</th>
+                            <th>Text Two</th>
+                            <th>Radio</th>
+                            <th>Select</th>
+                            <th>Checked</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{textOne}</td>
+                            <td>{textTwo}</td>
+                            <td>{radio}</td>
+                            <td>{select}</td>
+                            <td>{check}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                ) : <></>
+            }
+
         </div>
     );
 }
