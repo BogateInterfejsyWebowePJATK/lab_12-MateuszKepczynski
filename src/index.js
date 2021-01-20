@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import FormComp from "./components/FormComponent";
+import LoginComponent from "./components/Login";
 
 ReactDOM.render(
   <React.StrictMode>
-    <FormComp />
+    <LoginComponent />
   </React.StrictMode>,
   document.getElementById('root')
 );
