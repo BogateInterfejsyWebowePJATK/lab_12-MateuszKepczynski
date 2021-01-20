@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 
-export default function Register()
+export default function Register({handleRegister = f => f})
 {
     const [name, setName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -73,11 +73,7 @@ export default function Register()
         event.preventDefault();
         var obj = {email: email, password: password, name: name, lastName: lastName, birth: birthDate};
 
-        var objToJson = JSON.stringify(obj);
-
-        console.log(objToJson)
-
-
+        handleRegister(obj);
     }
 
 
